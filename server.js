@@ -34,8 +34,12 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var port = process.env.C9_PORT || parseInt(argv[2], 10) || 8080;
-var backend_host = argv[3] || 'dev.analytical-labs.com';
-var backend_port = argv[4] || 80;
+//var backend_host = argv[3] || 'dev.analytical-labs.com';
+//var backend_port = argv[4] || 80;
+var backend_host = argv[3] || 'localhost';
+var backend_port = argv[4] || 8080;
+
+
 var backend_path_prefix = argv[5] || '';
 var auth = argv[6] || null;
 
