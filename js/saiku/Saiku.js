@@ -137,9 +137,11 @@ if (! Settings.BIPLUGIN) {
                     if(j == i) {
                         Saiku.session = new Session({}, {
                             username: Settings.USERNAME,
-                            password: Settings.PASSWORD
+                            password: Settings.PASSWORD,
+                            hash: window.hash
                         });
-
+                        
+                        console.log("CARGADO", Saiku.session, window.hash);
                         Saiku.toolbar = new Toolbar();
                     }
                 });

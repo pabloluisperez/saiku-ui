@@ -20,13 +20,21 @@
  * @param password
  * @returns {Session}
  */
+//var Token = Backbone.Model.extend({
+////  hash: null,
+//  url : function() {
+//    return 'session/loginToken';
+//  }
+//});
+
+
 var Session = Backbone.Model.extend({
     username: null,
     password: null,
     sessionid: null,
     upgradeTimeout: null,
     isadmin: false,
-        
+    token: null,    
     initialize: function(args, options) {
         // Attach a custom event bus to this model
         _.extend(this, Backbone.Events);
@@ -41,7 +49,25 @@ var Session = Backbone.Model.extend({
                 this.check_session();    
             }
 
-        } else {
+        } if(options && options.hash){
+        	console.log("HASH", options.hash.substring(1));
+        	this.token = options.hash.substring(1);
+//        	var tokenModel = new Token();
+        	var that = this;
+        	Backbone.ajax({
+        	    dataType: "json",
+        	    type: "post",
+        	    url: 'saiku/rest/saiku/session/loginToken',
+        	    data: {token: this.token},
+        	    success: function(val){
+        	    	that.check_session();
+        	    },
+        	    error: function(val){
+        	    	that.check_session();
+        	    }
+        	});
+//        	tokenModel.save({token: this.token}, {success: this.check_session(), error: this.check_session()});
+    	} else {
             this.check_session();
         }
     },
